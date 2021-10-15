@@ -49,7 +49,7 @@ public class Conexao {
 	}
 	
 	
-	private static void fecharConexao() {
+	public static Connection fecharConexao() {
 		try {
 			// 3º - Fechar a conexão
 			if(conexao != null) {
@@ -61,5 +61,6 @@ public class Conexao {
 				
 			System.out.println("Problema ao fechar a conexao com o BD");
 		}
+		return conexao;
 	}
 }

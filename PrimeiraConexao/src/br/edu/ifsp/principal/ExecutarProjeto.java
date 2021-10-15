@@ -1,11 +1,12 @@
 package br.edu.ifsp.principal;
 
-import br.edu.ifsp.tela.TelaPessoa;
+import br.edu.ifsp.tela.TelaPrincipal;
 
 public class ExecutarProjeto {
 
 	public static void main(String[] args) {
 		
-		TelaPessoa telaPessoa = new TelaPessoa("Formulario Pessoa");
+		TelaPrincipal telaPrincipal = new TelaPrincipal();
+		//TelaPessoa telaPessoa = new TelaPessoa("Formulario Pessoa");
 	}
 }

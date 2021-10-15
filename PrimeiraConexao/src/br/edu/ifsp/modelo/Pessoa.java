@@ -39,4 +39,10 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
+	@Override
+	public String toString() {
+		return this.id + " - " + nome + " - " + this.idade + " anos - Endereço: " + this.endereco;
+		
+	}
+	
 }

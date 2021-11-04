@@ -1,19 +1,15 @@
 package br.edu.ifsp.tela;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import br.edu.ifsp.dao.PessoaDAO;
-import br.edu.ifsp.modelo.Pessoa;
+import br.edu.ifsp.controlador.TelaEditarBuscaController;
+import br.edu.ifsp.controlador.TelaEditarSalvarController;
 
 public class TelaEditar extends JFrame{
 
@@ -43,6 +39,9 @@ public class TelaEditar extends JFrame{
 	public TelaEditar() {
 		createWindow();
 		loadWindow();
+		
+		TelaEditarSalvarController salvarController = new TelaEditarSalvarController(this);
+		TelaEditarBuscaController buscarController = new TelaEditarBuscaController(this);
 	}
 	
 	private void createWindow() {
@@ -52,32 +51,7 @@ public class TelaEditar extends JFrame{
 		lblSearch =new JLabel("Nome");
 		fldSearch = new JTextField(20);
 		btnSearch = new JButton("Buscar");
-		btnSearch.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<Pessoa> pessoa = new ArrayList<>();
-				pessoa.addAll(new PessoaDAO().listarPorNome(fldSearch.getText()));
-								
-				String [] split = pessoa.toString().split(" - ");
-				id = split[0].replace("[", "");
 				
-				String nome = split[1];
-				
-				String idade = split[2];
-				String [] splitIdade = idade.split(" ");
-				idade = splitIdade[0];
-				
-				String endereco = split[3];
-				String [] splitEndereco = endereco.split(": ");
-				endereco = splitEndereco[1].replace("]", "");
-				
-				fldName.setText(nome);
-				fldAge.setText(idade);
-				fldAdress.setText(endereco);
-			}
-		});
-		
 		pnlEdit = new JPanel(new GridLayout(3, 2));
 		pnlName = new JPanel();
 		lblName = new JLabel("Nome");
@@ -91,24 +65,6 @@ public class TelaEditar extends JFrame{
 		
 		pnlButton = new JPanel();
 		btnSave = new JButton("Salvar");
-		btnSave.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				Pessoa pessoa = new Pessoa();
-				//pessoa.setId(id);
-				pessoa.setId(Integer.parseInt(id));
-				pessoa.setNome(fldName.getText());
-				pessoa.setIdade(Integer.parseInt(fldAge.getText()));
-				pessoa.setEndereco(fldAdress.getText());
-
-				new PessoaDAO().editarPessoa(pessoa);
-				
-				JOptionPane.showMessageDialog(null, fldName.getText() + " foi alterado.");
-				dispose();
-			}
-		});
 		
 		addComponents();
 	}
@@ -148,5 +104,48 @@ public class TelaEditar extends JFrame{
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
+	
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public JTextField getFldName() {
+		return fldName;
+	}
+
+	public void setFldName(String name) {
+		this.fldName.setText(name);
+	}
+
+	public JTextField getFldAge() {
+		return fldAge;
+	}
+
+	public void setFldAge(String age) {
+		this.fldAge.setText(age);
+	}
+
+	public JTextField getFldAdress() {
+		return fldAdress;
+	}
+
+	public void setFldAdress(String adress) {
+		this.fldAdress.setText(adress);
+	}
+
+	public JTextField getFldSearch() {
+		return fldSearch;
+	}
+
+	public JButton getBtnSearch() {
+		return btnSearch;
+	}
+
+	public JButton getBtnSave() {
+		return btnSave;
+	}
 }

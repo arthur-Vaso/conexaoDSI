@@ -1,19 +1,18 @@
 package br.edu.ifsp.tela;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
-import br.edu.ifsp.dao.PessoaDAO;
+import br.edu.ifsp.controlador.TelaBuscarPessoaController;
+import br.edu.ifsp.controlador.TelaEditarController;
+import br.edu.ifsp.controlador.TelaListaController;
+import br.edu.ifsp.controlador.TelaPessoaController;
+import br.edu.ifsp.controlador.TelaPrincipalFecharConexao;
+import br.edu.ifsp.controlador.TelaRemoverController;
 
 public class TelaPrincipal extends JFrame {
 
@@ -32,6 +31,14 @@ public class TelaPrincipal extends JFrame {
 	public TelaPrincipal() {
 		createWindow();
 		loadWindow();
+		
+		TelaPessoaController addController = new TelaPessoaController(this);
+		TelaListaController listaController = new TelaListaController(this);
+		TelaBuscarPessoaController buscarController = new TelaBuscarPessoaController(this);
+		TelaEditarController editarController = new TelaEditarController(this);
+		TelaRemoverController removerController = new TelaRemoverController(this);
+	
+		TelaPrincipalFecharConexao window = new TelaPrincipalFecharConexao(this);
 	}
 
 	private void createWindow() {
@@ -42,41 +49,14 @@ public class TelaPrincipal extends JFrame {
 
 		pnlButtons = new JPanel(new GridLayout(1, 5));
 		btnAdd = new JButton("Adicionar");
-		btnAdd.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaPessoa telaPessoa = new TelaPessoa("Formulario Pessoa");
-			}
-		});
+		
 		btnList = new JButton("Listar");
-		btnList.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaLista telaLista = new TelaLista();
-			}
-		});
+		
 		btnFindName = new JButton("Pesquisar");
-		btnFindName.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaBusca telaBusca = new TelaBusca();
-			}
-		});
+
 		btnEdit = new JButton("Editar");
-		btnEdit.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaEditar telaEditar = new TelaEditar();
-			}
-		});
 
 		btnDelete = new JButton("Excluir");
-		btnDelete.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaRemover telaRemover = new TelaRemover();
-			}
-		});
 
 		addComponents();
 	}
@@ -104,15 +84,25 @@ public class TelaPrincipal extends JFrame {
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+	}
 
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent we) {
-				
-				new PessoaDAO().fecharConexao();
-				
-				System.exit(0);
-			}
-		});
+	public JButton getBtnAdd() {
+		return btnAdd;
+	}
+
+	public JButton getBtnList() {
+		return btnList;
+	}
+
+	public JButton getBtnFindName() {
+		return btnFindName;
+	}
+
+	public JButton getBtnEdit() {
+		return btnEdit;
+	}
+
+	public JButton getBtnDelete() {
+		return btnDelete;
 	}
 }

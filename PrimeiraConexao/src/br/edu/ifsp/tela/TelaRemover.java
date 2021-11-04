@@ -1,19 +1,15 @@
 package br.edu.ifsp.tela;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import br.edu.ifsp.dao.PessoaDAO;
-import br.edu.ifsp.modelo.Pessoa;
+import br.edu.ifsp.controlador.TelaRemoverBuscarController;
+import br.edu.ifsp.controlador.TelaRemoverFinalizarController;
 
 public class TelaRemover extends JFrame {
 
@@ -30,7 +26,7 @@ public class TelaRemover extends JFrame {
 	private JLabel lblAdress;
 
 	private JPanel pnlButton;
-	private JButton btnSave;
+	private JButton btnEnd;
 
 	private String id;
 	private String nome;
@@ -40,6 +36,9 @@ public class TelaRemover extends JFrame {
 	public TelaRemover() {
 		createWindow();
 		loadWindow();
+		
+		TelaRemoverBuscarController removeController = new TelaRemoverBuscarController(this);
+		TelaRemoverFinalizarController finalizaController = new TelaRemoverFinalizarController(this);
 	}
 
 	private void createWindow() {
@@ -49,31 +48,6 @@ public class TelaRemover extends JFrame {
 		lblSearch = new JLabel("Nome");
 		fldSearch = new JTextField(20);
 		btnSearch = new JButton("Buscar");
-		btnSearch.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<Pessoa> pessoa = new ArrayList<>();
-				pessoa.addAll(new PessoaDAO().listarPorNome(fldSearch.getText()));
-
-				String[] split = pessoa.toString().split(" - ");
-				id = split[0].replace("[", "");
-
-				nome = split[1];
-
-				idade = split[2];
-				String[] splitIdade = idade.split(" ");
-				idade = splitIdade[0];
-
-				endereco = split[3];
-				String[] splitEndereco = endereco.split(": ");
-				endereco = splitEndereco[1].replace("]", "");
-
-				lblName.setText("Nome: " + nome);
-				lblAge.setText("Idade: " + idade);
-				lblAdress.setText("Endereço: " + endereco);
-			}
-		});
 
 		pnlEdit = new JPanel(new GridLayout(3, 1, 10, 10));
 		lblName = new JLabel("Nome: ");
@@ -81,24 +55,7 @@ public class TelaRemover extends JFrame {
 		lblAdress = new JLabel("Endereço: ");
 
 		pnlButton = new JPanel();
-		btnSave = new JButton("Remover");
-		btnSave.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				Pessoa pessoa = new Pessoa();
-				pessoa.setId(Integer.parseInt(id));
-				pessoa.setNome(nome);
-				pessoa.setIdade(Integer.parseInt(idade));
-				pessoa.setEndereco(endereco);
-
-				new PessoaDAO().removerPessoa(pessoa);
-				
-				JOptionPane.showMessageDialog(null, nome + " foi removido.");
-				dispose();
-			}
-		});
+		btnEnd = new JButton("Remover");
 
 		addComponents();
 	}
@@ -112,7 +69,7 @@ public class TelaRemover extends JFrame {
 		pnlEdit.add(lblAge);
 		pnlEdit.add(lblAdress);
 
-		pnlButton.add(btnSave);
+		pnlButton.add(btnEnd);
 
 		pnl.add(pnlSearch);
 		pnl.add(pnlEdit);
@@ -127,6 +84,62 @@ public class TelaRemover extends JFrame {
 		setVisible(true);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getIdade() {
+		return idade;
+	}
+
+	public void setIdade(String idade) {
+		this.idade = idade;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public JTextField getFldSearch() {
+		return fldSearch;
+	}
+
+	public JButton getBtnSearch() {
+		return btnSearch;
+	}
+
+	public JButton getbtnEnd() {
+		return btnEnd;
+	}
+
+	public void setLblName(String name) {
+		this.lblName.setText(name);
+	}
+
+	public void setLblAge(String age) {
+		this.lblAge.setText(age);
+	}
+
+	public void setLblAdress(String adress) {
+		this.lblAdress.setText(adress);
 	}
 
 }

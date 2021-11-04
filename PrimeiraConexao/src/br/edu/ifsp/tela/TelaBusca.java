@@ -1,15 +1,12 @@
 package br.edu.ifsp.tela;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import br.edu.ifsp.dao.PessoaDAO;
+import br.edu.ifsp.controlador.BotaoBuscarController;
 
 public class TelaBusca extends JFrame{
 
@@ -21,6 +18,8 @@ public class TelaBusca extends JFrame{
 	public TelaBusca() {
 		createWindow();
 		loadWindow();
+		
+		BotaoBuscarController buscaController = new BotaoBuscarController(this);
 	}
 	
 	private void createWindow() {
@@ -30,15 +29,6 @@ public class TelaBusca extends JFrame{
 		fld = new JTextField(20);
 		
 		btn = new JButton("Buscar");
-		btn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TelaLista telaLista = new TelaLista(fld.getText());
-				
-				dispose();
-			}
-		});
 		
 		addComponents();
 	}
@@ -60,4 +50,11 @@ public class TelaBusca extends JFrame{
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
+	public JButton getBtn() {
+		return btn;
+	}
+
+	public JTextField getFld() {
+		return fld;
+	}
 }

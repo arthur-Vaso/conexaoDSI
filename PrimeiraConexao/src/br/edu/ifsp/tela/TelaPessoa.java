@@ -51,6 +51,7 @@ public class TelaPessoa extends JFrame {
 		panel.add(botao);
 		
 		getContentPane().add(panel);
+		setVisible(true);
 	}
 
 	public JTextField getCampo1() {

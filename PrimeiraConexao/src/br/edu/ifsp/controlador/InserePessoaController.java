@@ -33,6 +33,8 @@ public class InserePessoaController implements ActionListener {
 		new PessoaDAO().inserirPessoa(modelo);
 		
 		JOptionPane.showMessageDialog(null, "Pessoa inserida com sucesso!!");
+		
+		tela.dispose();
 	}
 
 }

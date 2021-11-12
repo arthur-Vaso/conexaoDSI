@@ -68,7 +68,7 @@ public class PessoaDAO {
 
 		} catch (SQLException sqlex) {
 			sqlex.printStackTrace();
-			System.out.println("Erro ao executar SQL de insercao de Pessoa");
+			System.out.println("Erro ao executar SQL ao buscar Pessoa");
 		}
 
 		return pessoas;
@@ -107,7 +107,7 @@ public class PessoaDAO {
 			
 		} catch (SQLException sqlex) {
 			sqlex.printStackTrace();
-			System.out.println("Erro ao executar SQL de insercao de Pessoa");
+			System.out.println("Erro ao executar SQL ao buscar Pessoa");
 		}
 		
 		return pessoas;
@@ -133,7 +133,7 @@ public class PessoaDAO {
 
 		} catch (SQLException sqlex) {
 			sqlex.printStackTrace();
-			System.out.println("Erro ao executar SQL de insercao de Pessoa");
+			System.out.println("Erro ao executar SQL ao editar Pessoa");
 		}
 	}
 
@@ -154,7 +154,7 @@ public class PessoaDAO {
 
 		} catch (SQLException sqlex) {
 			sqlex.printStackTrace();
-			System.out.println("Erro ao executar SQL de insercao de Pessoa");
+			System.out.println("Erro ao executar SQL ao excluir Pessoa");
 		}
 	}
 
